@@ -19,8 +19,13 @@ import java.util.List;
 @SpringBootApplication
 public class ApiRestSamuelApplication implements CommandLineRunner {
 
-	@Autowired
+	final
 	MuseumManagmentImpl museumManagment;
+
+	@Autowired
+	public ApiRestSamuelApplication(MuseumManagmentImpl museumManagment) {
+		this.museumManagment = museumManagment;
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(ApiRestSamuelApplication.class, args);
@@ -28,6 +33,7 @@ public class ApiRestSamuelApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+
 
 		ObjectMapper mapper = new ObjectMapper();
 		TypeReference<List<Museum>> typeReference = new TypeReference<List<Museum>>() {};
@@ -39,6 +45,14 @@ public class ApiRestSamuelApplication implements CommandLineRunner {
 		}catch (IOException e){
 			System.out.println(e.getMessage());
 		}
+
+
+
+
+
+
+
+
 
 
 
