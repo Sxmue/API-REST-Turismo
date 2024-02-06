@@ -1,9 +1,6 @@
 package com.api.rest.francisco.models;
 
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 /**
  * Clase Data Transfer Object para Museo
  * @param name

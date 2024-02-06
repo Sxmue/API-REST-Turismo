@@ -1,6 +1,7 @@
-package com.api.rest.francisco.services;
+package com.api.rest.francisco.services.museum;
 
 import com.api.rest.francisco.models.Museum;
+import com.api.rest.francisco.models.MuseumDTO;
 
 import java.util.List;
 
@@ -14,21 +15,21 @@ public interface MuseumManagmentI {
      * Servicio que obtiene todos los museos
      * @return Lista con los museos encontrados
      */
-    public List<Museum> getAllMuseums();
+    public List<MuseumDTO> getAllMuseums();
 
     /**
      * Servicio que busca museos por municipio
      * @param municipality nombre del municipios
      * @return lista de museos en ese municipio
      */
-    public List<Museum> searchMuseumsByMunicipaly(String municipality);
+    public List<MuseumDTO> searchMuseumsByMunicipaly(String municipality);
 
     /**
      * Servicio que obtiene todos los
      * @param name nombre del museo
      * @return el museo con todos los datos
      */
-    public Museum getMuseumByName(String name);
+    public MuseumDTO getMuseumByName(String name);
 
     /**
      * Servicio que devuelve el horario de un museo
@@ -42,21 +43,21 @@ public interface MuseumManagmentI {
      * @param province provincia en la que buscar
      * @return lista con los museos en la provincia
      */
-    public List<Museum> searchMuseumByProvince(String province);
+    public List<MuseumDTO> searchMuseumByProvince(String province);
 
     /**
      * Servicio que busca museos por codigoPostal
      * @param postcode codigo postal
      * @return lista con los museos encontrados
      */
-    public List<Museum> searchMuseumByPostcode(Integer postcode);
+    public List<MuseumDTO> searchMuseumByPostcode(Integer postcode);
 
     /**
      * Servicio que busca museos por tipo de museo
      * @param type el tipo del museo
      * @return lista con los museos buscados
      */
-    public List<Museum> searchMuseumsByType(String type);
+    public List<MuseumDTO> searchMuseumsByType(String type);
 
     /**
      * Servicio que busca museos cercanos al usuario
@@ -64,28 +65,28 @@ public interface MuseumManagmentI {
      * @param longitud longitud del usuario
      * @return lista de museos disponibles en ese rango
      */
-    public List<Museum> searchNearMuseums(Double latitud,Double longitud);
+    public List<MuseumDTO> searchNearMuseums(Double latitud,Double longitud);
 
     /**
      * Servicio para dar de alta un museo
      * @param m museo a registrar
      * @return museo dado de alta
      */
-    public Museum registerMuseum(Museum m);
+    public MuseumDTO registerMuseum(MuseumDTO m);
 
     /**
      * Servicio que actualiza un museo
      * @param m museo a actualizar
      * @return el museo actualizado
      */
-    public Museum updateMuseum(Museum m);
+    public MuseumDTO updateMuseum(MuseumDTO m);
 
     /**
      * Servicio que elimina un museo
      * @param m museo a eliminar
      * @return el museo eliminado
      */
-    public Museum deleteMuseum(Museum m);
+    public MuseumDTO deleteMuseum(MuseumDTO m);
 
 
 

@@ -1,7 +1,7 @@
 package com.api.rest.francisco;
 
 import com.api.rest.francisco.models.Museum;
-import com.api.rest.francisco.services.MuseumManagmentImpl;
+import com.api.rest.francisco.services.museum.MuseumManagmentImpl;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
