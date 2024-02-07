@@ -23,8 +23,7 @@ public class GeoServiceImpl implements GeoServiceI{
         // Aplicar la fórmula de Haversine
         double a = Math.pow(Math.sin(dlat / 2), 2) + Math.cos(userLatitude) * Math.cos(museumLatitude) * Math.pow(Math.sin(dlon / 2), 2);
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        double distancia = R * c;
 
-        return distancia;
+        return R * c;
     }
 }
