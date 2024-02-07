@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserServiceI {
 
         if (!name.isEmpty() && !dni.isEmpty()) {
 
-            u = new User(name, dni);
+           // u = new User(name, dni);
 
             userRepositoryI.save(u);
 
@@ -49,5 +49,15 @@ public class UserServiceImpl implements UserServiceI {
         }
 
         return r;
+    }
+
+    @Override
+    public User updateUser(User u) {
+        return userRepositoryI.save(u);
+    }
+
+    @Override
+    public User getUserByToken(Integer token) {
+        return userRepositoryI.findByToken(token);
     }
 }

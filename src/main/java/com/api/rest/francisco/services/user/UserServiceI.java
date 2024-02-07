@@ -10,4 +10,9 @@ public interface UserServiceI {
     /** Metodo para ver si un usuario esta loggeado */
     public User isLogged (User u);
 
+    /** Metodo para actualizar un usuario */
+    public User updateUser(User u);
+
+    public User getUserByToken(Integer token);
+
 }

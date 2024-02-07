@@ -13,5 +13,7 @@ public abstract class AbstractEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "Fecha de Guardado")
-    private Date saveDate;
+    private Date saveDate =  new Date();
+    @Column(name = "Fecha de Modificacion")
+    private Date modifyDate;
 }

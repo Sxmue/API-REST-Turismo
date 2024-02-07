@@ -4,6 +4,7 @@ import com.api.rest.francisco.models.Museum;
 import com.api.rest.francisco.models.MuseumDTO;
 import com.api.rest.francisco.models.repositories.MuseumRepositoryI;
 import com.api.rest.francisco.services.DtoTransformService;
+import com.api.rest.francisco.services.geo.GeoServiceI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,9 @@ public class MuseumManagmentImpl implements MuseumManagmentI{
     /** Inyeccion del servicio*/
     final DtoTransformService dtoTransformService;
 
+    /** Inyeccion del servicio */
+    private final GeoServiceI geoServiceI;
+
     /**
      * Constructor de la clase
      *s
@@ -29,9 +33,10 @@ public class MuseumManagmentImpl implements MuseumManagmentI{
      * @param dtoTransformService servicio de transformacion de DTO
      */
     @Autowired
-    public MuseumManagmentImpl(MuseumRepositoryI museumRepository, DtoTransformService dtoTransformService) {
+    public MuseumManagmentImpl(MuseumRepositoryI museumRepository, DtoTransformService dtoTransformService, GeoServiceI geoServiceI) {
         this.museumRepository = museumRepository;
         this.dtoTransformService = dtoTransformService;
+        this.geoServiceI = geoServiceI;
     }
 
     @Override
@@ -98,6 +103,7 @@ public class MuseumManagmentImpl implements MuseumManagmentI{
 
     }
 
+
     @Override
     public List<MuseumDTO> searchMuseumsByType(String type) {
 
@@ -110,11 +116,20 @@ public class MuseumManagmentImpl implements MuseumManagmentI{
     }
 
     @Override
-    public List<MuseumDTO> searchNearMuseums(Double latitud, Double longitud){
+    public List<MuseumDTO> searchNearMuseums(Double userLatitud, Double userLongitud){
 
-        //TODO implementar este servicio
+            List<MuseumDTO> list = new ArrayList<>();
 
-        return null;
+            museumRepository.findAll().forEach(museum -> {
+
+                Double distance = geoServiceI.haversine(userLatitud,userLongitud,Double.parseDouble(museum.getLatitude()),Double.parseDouble(museum.getLongitude()));
+
+                if (distance < 30) {
+                    list.add(dtoTransformService.museumToDto(museum));
+                }
+            });
+
+        return list;
     }
 
     @Override

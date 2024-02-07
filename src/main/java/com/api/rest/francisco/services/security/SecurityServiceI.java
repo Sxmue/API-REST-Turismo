@@ -11,7 +11,7 @@ public interface SecurityServiceI {
     public Integer generateToken (User u);
 
     /** Servicio para la validacion de tokens */
-    public Boolean validateToken(String token);
+    public Boolean validateToken(Integer token);
 
 
 }

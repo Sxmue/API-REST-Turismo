@@ -1,5 +1,6 @@
 package com.api.rest.francisco.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -17,13 +18,16 @@ import java.util.Date;
 @NoArgsConstructor
 public class User extends AbstractEntity implements Serializable {
 
+    @Column(name="nombre")
     private String name;
 
+    @Column(name="DNI")
     private String dni;
 
+    private String email;
+
+    @Column(name="clave")
     private Integer token;
 
-    //TODO AÑADIR CAMPO DE FECHA DE MODIFICACION MODIFICACION DEL REGISTRO EN EL ABSTRACT ENTITY
-    private Date date;
 
 }

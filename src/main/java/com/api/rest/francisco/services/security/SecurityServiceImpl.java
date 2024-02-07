@@ -6,13 +6,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.Objects;
 import java.util.Random;
 
 /**
  * Servicio de Seguridad
  */
 @Service
-public class SecurityServiceImpl implements SecurityServiceI{
+public class SecurityServiceImpl implements SecurityServiceI {
 
 
     private final UserServiceImpl userService;
@@ -29,22 +31,41 @@ public class SecurityServiceImpl implements SecurityServiceI{
 
         Integer token = null;
 
-        if (test != null){
+        if (test != null) {
 
             Random random = new Random();
 
             token = random.nextInt(Integer.MAX_VALUE) + 1;
 
+            test.setToken(token);
+
+            test.setModifyDate((new Date()));
+
+            userService.updateUser(test);
+
         }
-        //TODO HACER QUE EL TOKEN SE GUARDE EN LA BASE DE DATOS CON LA DATE ACTUAL
+
         return token;
     }
 
     @Override
-    public Boolean validateToken(String token) {
+    public Boolean validateToken(Integer token) {
+        Boolean result = false;
 
-        //TODO IMPLEMENTAR LA VALIDACION COGIENDO LA FECHA DEL USUARIO DE LA BASE DE DATOS Y HACIENDO TIMESTAMP
+        User u = userService.getUserByToken(token);
 
-        return null;
+        Date now = new Date();
+
+        // Calcula la diferencia en milisegundos entre la fecha de modificación y la fecha actual
+        long milisecondsDiference = now.getTime() - u.getModifyDate().getTime();
+
+        // Convierte la diferencia a horas
+        long houres = milisecondsDiference / (60 * 60 * 1000);
+
+        if ((houres < 24) && Objects.equals(token, u.getToken())) {
+            result = true;
+        }
+
+        return result;
     }
 }
