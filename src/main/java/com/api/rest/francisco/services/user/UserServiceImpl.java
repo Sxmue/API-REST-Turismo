@@ -7,9 +7,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * Servicio de gestion de usuarios
+ */
 @Service
 public class UserServiceImpl implements UserServiceI {
 
+    /** Inyeccion de repositorio */
     private final UserRepositoryI userRepositoryI;
 
     @Autowired
@@ -19,12 +23,16 @@ public class UserServiceImpl implements UserServiceI {
 
 
     @Override
-    public User loginUser(String name, String dni) {
+    public User loginUser(String name, String dni,String email) {
         User u = null;
 
-        if (!name.isEmpty() && !dni.isEmpty()) {
+        if (!name.isEmpty() && !dni.isEmpty() && !email.isEmpty()) {
 
-           // u = new User(name, dni);
+           u = new User();
+
+           u.setEmail(email);
+           u.setDni(dni);
+           u.setName(name);
 
             userRepositoryI.save(u);
 
