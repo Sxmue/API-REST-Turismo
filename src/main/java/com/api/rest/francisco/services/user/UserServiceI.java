@@ -16,4 +16,7 @@ public interface UserServiceI {
     /** Metodo para buscar a un usuario por su token */
     public User getUserByToken(Integer token);
 
+    /** Metodo para buscar a un usuario por su dni*/
+    public User getUserBydni(String dni);
+
 }

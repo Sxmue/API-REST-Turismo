@@ -56,14 +56,16 @@ public class SecurityServiceImpl implements SecurityServiceI {
 
         Date now = new Date();
 
-        // Calcula la diferencia en milisegundos entre la fecha de modificación y la fecha actual
-        long milisecondsDiference = now.getTime() - u.getModifyDate().getTime();
+        if (u != null) {
+            // Calcula la diferencia en milisegundos entre la fecha de modificación y la fecha actual
+            long milisecondsDiference = now.getTime() - u.getModifyDate().getTime();
 
-        // Convierte la diferencia a horas
-        long houres = milisecondsDiference / (60 * 60 * 1000);
+            // Convierte la diferencia a horas
+            long houres = milisecondsDiference / (60 * 60 * 1000);
 
-        if ((houres < 24) && Objects.equals(token, u.getToken())) {
-            result = true;
+            if ((houres < 24) && Objects.equals(token, u.getToken())) {
+                result = true;
+            }
         }
 
         return result;

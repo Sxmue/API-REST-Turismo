@@ -48,11 +48,16 @@ public class UserServiceImpl implements UserServiceI {
 
         Optional<User> f = userRepositoryI.findById(u.getId());
 
-        if(f != null) {
+        if(f.isPresent()) {
 
             r = new User();
+            r.setId(f.get().getId());
             r.setDni(f.get().getDni());
-            r.setName(f.get().getDni());
+            r.setName(f.get().getName());
+            r.setEmail(f.get().getEmail());
+            r.setToken(f.get().getToken());
+            r.setModifyDate(f.get().getModifyDate());
+            r.setSaveDate(f.get().getSaveDate());
 
         }
 
@@ -67,5 +72,10 @@ public class UserServiceImpl implements UserServiceI {
     @Override
     public User getUserByToken(Integer token) {
         return userRepositoryI.findByToken(token);
+    }
+
+    @Override
+    public User getUserBydni(String dni) {
+        return userRepositoryI.findByDni(dni);
     }
 }

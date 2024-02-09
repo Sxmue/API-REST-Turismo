@@ -122,10 +122,13 @@ public class MuseumManagmentImpl implements MuseumManagmentI{
 
             museumRepository.findAll().forEach(museum -> {
 
-                Double distance = geoServiceI.haversine(userLatitud,userLongitud,Double.parseDouble(museum.getLatitude()),Double.parseDouble(museum.getLongitude()));
+                if (museum.getLatitude() != null && museum.getLongitude() != null) {
 
-                if (distance < 30) {
-                    list.add(dtoTransformService.museumToDto(museum));
+                    Double distance = geoServiceI.haversine(userLatitud, userLongitud, Double.parseDouble(museum.getLatitude().replace(",", ".")), Double.parseDouble(museum.getLongitude().replace(",", ".")));
+
+                    if (distance < 30) {
+                        list.add(dtoTransformService.museumToDto(museum));
+                    }
                 }
             });
 

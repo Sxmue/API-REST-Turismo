@@ -7,4 +7,6 @@ public interface UserRepositoryI extends JpaRepository<User,Long> {
 
 
     public User findByToken(Integer token);
+
+    public User findByDni(String dni);
 }

@@ -1,5 +1,6 @@
 package com.api.rest.francisco.controllers;
 
+import com.api.rest.francisco.models.User;
 import com.api.rest.francisco.services.security.SecurityServiceImpl;
 import com.api.rest.francisco.services.user.UserServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
@@ -35,9 +36,19 @@ public class UserController {
 
         if(!name.isEmpty() && !dni.isEmpty() && !email.isEmpty()){
 
-            response = new ResponseEntity<>( (securityService.generateToken(userService.loginUser(name,dni,email))) , HttpStatus.OK);
-            HttpSession s = request.getSession();
-            s.setAttribute("token",response.getBody());
+            User test = userService.getUserBydni(dni);
+
+            if (userService.getUserBydni(dni) != null){
+
+                response = new ResponseEntity<>((securityService.generateToken(userService.updateUser(test))), HttpStatus.OK);
+
+            }else {
+                response = new ResponseEntity<>((securityService.generateToken(userService.loginUser(name, dni, email))), HttpStatus.OK);
+                HttpSession s = request.getSession();
+                s.setAttribute("token", response.getBody());
+            }
+
+
 
         }else{
 
