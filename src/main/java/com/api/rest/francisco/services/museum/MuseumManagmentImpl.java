@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -138,26 +139,49 @@ public class MuseumManagmentImpl implements MuseumManagmentI{
     @Override
     public MuseumDTO registerMuseum(MuseumDTO m) {
 
-        Museum s = dtoTransformService.dtoToMuseum(m);
+        MuseumDTO result = null;
 
-        return dtoTransformService.museumToDto(museumRepository.save(s));
+        //Solo lo guardamos si no existe previamente existe, lo buscamos por el nombre
+        if(museumRepository.findByName(m.name()) == null) {
+            Museum s = dtoTransformService.dtoToMuseum(m);
+            s.setModifyDate((new Date()));
+            if (s.getSaveDate() == null) s.setSaveDate((new Date()));
+            result = dtoTransformService.museumToDto(museumRepository.save(s));
+
+        }
+
+        return result;
     }
 
     @Override
     public MuseumDTO updateMuseum(MuseumDTO m) {
 
-        Museum s = dtoTransformService.dtoToMuseum(m);
+        MuseumDTO result = null;
 
-        return dtoTransformService.museumToDto(museumRepository.save(s));
+        //Solo lo actualizamos si existe, lo buscamos por el nombre
+        if(museumRepository.findByName(m.name()) != null) {
+            Museum s = dtoTransformService.dtoToMuseum(m);
+            s.setModifyDate((new Date()));
+            if (s.getSaveDate() == null) s.setSaveDate((new Date()));
+
+            result = dtoTransformService.museumToDto(museumRepository.save(s));
+
+        }
+
+        return result;
     }
 
     @Override
     public MuseumDTO deleteMuseum(MuseumDTO m) {
 
-        Museum s = dtoTransformService.dtoToMuseum(m);
+        Museum test = museumRepository.findByName(m.name());
 
-        museumRepository.delete(s);
+        if (test != null) {
 
-        return m;
+            museumRepository.delete(test);
+
+        }
+
+        return (test == null) ? null : dtoTransformService.museumToDto(test);
     }
 }

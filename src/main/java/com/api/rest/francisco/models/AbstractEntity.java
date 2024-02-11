@@ -15,5 +15,5 @@ public abstract class AbstractEntity {
     @Column(name = "Fecha de Guardado")
     private Date saveDate =  new Date();
     @Column(name = "Fecha de Modificacion")
-    private Date modifyDate;
+    private Date modifyDate = new Date();
 }

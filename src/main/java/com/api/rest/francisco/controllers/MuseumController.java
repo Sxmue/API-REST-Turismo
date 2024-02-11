@@ -4,6 +4,7 @@ package com.api.rest.francisco.controllers;
 import com.api.rest.francisco.models.MuseumDTO;
 import com.api.rest.francisco.services.museum.MuseumManagmentImpl;
 import com.api.rest.francisco.services.security.SecurityServiceImpl;
+import jakarta.persistence.Column;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -186,6 +187,96 @@ public class MuseumController {
         return response;
     }
 
+
+    @PostMapping("/create/{token}")
+    public ResponseEntity<MuseumDTO> newMuseum(@RequestBody MuseumDTO museumDTO,@PathVariable Integer  token){
+
+        ResponseEntity<MuseumDTO> response = null;
+
+        MuseumDTO m = null;
+
+        //Si el token es correcto
+        if (Boolean.TRUE.equals(securityService.validateToken(token))){
+
+            //Si minimo el museo tiene el nombre que es lo que usamos en registrer para comprobar
+            if(museumDTO.name() != null) {
+
+                m = museumManagment.registerMuseum(museumDTO);
+
+                response = new ResponseEntity<>(m, HttpStatus.OK);
+
+                //Si el nombre es nulo devuelve bad request
+            }else  response = new ResponseEntity<>(m,HttpStatus.BAD_REQUEST);
+
+        }else{
+
+            response = new ResponseEntity<>(m,HttpStatus.UNAUTHORIZED);
+
+        }
+
+        return response;
+    }
+
+
+    @PutMapping ("/update/{token}")
+    public ResponseEntity<MuseumDTO> updateMuseum(@RequestBody MuseumDTO museumDTO,@PathVariable Integer  token){
+
+        ResponseEntity<MuseumDTO> response = null;
+
+        MuseumDTO m = museumManagment.getMuseumByName(museumDTO.name());
+
+        //Si el token es correcto
+        if (Boolean.TRUE.equals(securityService.validateToken(token))){
+
+            //Si minimo el museo tiene el nombre que es lo que usamos en registrer para comprobar
+            if(m != null) {
+
+                m = museumManagment.updateMuseum(museumDTO);
+
+                response = new ResponseEntity<>(m, HttpStatus.OK);
+
+                //Si el nombre es nulo devuelve bad request
+            }else  response = new ResponseEntity<>(m,HttpStatus.BAD_REQUEST);
+
+        }else{
+
+            response = new ResponseEntity<>(m,HttpStatus.UNAUTHORIZED);
+
+        }
+
+        return response;
+    }
+
+
+    @DeleteMapping ("/delete/{name}/{token}")
+    public ResponseEntity<MuseumDTO> deleteMuseum(@PathVariable String name, @PathVariable Integer  token){
+
+        ResponseEntity<MuseumDTO> response = null;
+
+        MuseumDTO m = museumManagment.getMuseumByName(name);
+
+        //Si el token es correcto
+        if (Boolean.TRUE.equals(securityService.validateToken(token))){
+
+            //Si minimo el museo tiene el nombre que es lo que usamos en registrer para comprobar
+            if(m != null) {
+
+                m = museumManagment.deleteMuseum(m);
+
+                response = new ResponseEntity<>(m, HttpStatus.OK);
+
+                //Si el nombre es nulo devuelve bad request
+            }else  response = new ResponseEntity<>(m,HttpStatus.BAD_REQUEST);
+
+        }else{
+            m=null;
+
+            response = new ResponseEntity<>(m,HttpStatus.UNAUTHORIZED);
+
+        }
+
+        return response;
+    }
 
 
 

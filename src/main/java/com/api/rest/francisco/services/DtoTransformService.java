@@ -85,17 +85,17 @@ public class DtoTransformService {
      */
     public MuseumDTO museumToDto(Museum m){
         return new MuseumDTO(
-                m.getAddress(),
                 m.getName(),
+                m.getLocation(),
                 m.getPostcode(),
                 m.getLatitude(),
-                m.getLongitude(),
                 m.getMunicipality(),
-                m.getLocation(),
                 m.getObservations(),
+                m.getAddress(),
                 m.getOpening_hours(),
                 m.getWeb(),
                 m.getProvince(),
+                m.getLongitude(),
                 m.getUnit_type()
         );
 
