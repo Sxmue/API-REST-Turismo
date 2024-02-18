@@ -4,7 +4,7 @@ package com.api.rest.francisco.controllers;
 import com.api.rest.francisco.models.MuseumDTO;
 import com.api.rest.francisco.services.museum.MuseumManagmentImpl;
 import com.api.rest.francisco.services.security.SecurityServiceImpl;
-import jakarta.persistence.Column;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +29,7 @@ public class MuseumController {
     }
 
     @GetMapping("/all/{token}")
+    @Operation(summary = "Obtener Todos los museos", description = "Devuelve todos los museos disponibles en la API, necesario el token de seguridad,para obtenerlo pasar por user/login.")
     public ResponseEntity<List<MuseumDTO>> allMuseums(@PathVariable Integer token){
 
         ResponseEntity<List<MuseumDTO>> response = null;
@@ -54,6 +55,7 @@ public class MuseumController {
 
 
     @GetMapping("/byMucipality/{mucipality}/{token}")
+    @Operation(summary = "Obtener Todos los museos de un municipio concreto", description = "Devuelve todos los museos disponibles en la API de un municipio concreto, necesario el token de seguridad,para obtenerlo pasar por user/login.")
     public ResponseEntity<List<MuseumDTO>> getMuseumsByMucipality(@PathVariable String mucipality,@PathVariable Integer token){
         ResponseEntity<List<MuseumDTO>> response = null;
 
@@ -76,6 +78,7 @@ public class MuseumController {
     }
 
     @GetMapping("/byName/{name}/{token}")
+    @Operation(summary = "Obtener museo por nombre", description = "Devuelve todos los datos de un museo concreto a traves de su nombre, necesario el token de seguridad,para obtenerlo pasar por user/login.")
     public ResponseEntity<MuseumDTO> getMuseumByName(@PathVariable String name,@PathVariable Integer token){
         ResponseEntity<MuseumDTO> response = null;
 
@@ -98,6 +101,7 @@ public class MuseumController {
     }
 
     @GetMapping("/byProvince/{province}/{token}")
+    @Operation(summary = "Obtener Todos los museos de una provincia concreta", description = "Devuelve todos los museos disponibles en la API de una provincia concreta, necesario el token de seguridad,para obtenerlo pasar por user/login.")
     public ResponseEntity<List<MuseumDTO>> getMuseumsByProvince(@PathVariable String province,@PathVariable Integer token){
         ResponseEntity<List<MuseumDTO>> response = null;
 
@@ -121,6 +125,7 @@ public class MuseumController {
 
 
     @GetMapping("/byPostcode/{postcode}/{token}")
+    @Operation(summary = "Obtener Todos los museos de un codigo postal en concreto", description = "Devuelve todos los museos disponibles en la API de un codigo postal en concreto, necesario el token de seguridad,para obtenerlo pasar por user/login.")
     public ResponseEntity<List<MuseumDTO>> getMuseumsByPostcode(@PathVariable Integer postcode,@PathVariable Integer token){
         ResponseEntity<List<MuseumDTO>> response = null;
 
@@ -143,6 +148,7 @@ public class MuseumController {
     }
 
     @GetMapping("/byType/{type}/{token}")
+    @Operation(summary = "Obtener Todos los museos de un tipo concreto", description = "Devuelve todos los museos disponibles en la API de un tipo concreto, por ejemplo solo yacimientos arqueológicos, necesario el token de seguridad,para obtenerlo pasar por user/login.")
     public ResponseEntity<List<MuseumDTO>> getMuseumsByType(@PathVariable String type,@PathVariable Integer token){
         ResponseEntity<List<MuseumDTO>> response = null;
 
@@ -166,6 +172,7 @@ public class MuseumController {
 
 
     @GetMapping("/near/{latitude}/{longitude}/{token}")
+    @Operation(summary = "Obtener todos los museos cercanos a la posicion del usuario", description = "Devuelve todos los museos que esten cercanos a la posicion del usuario, pasada a traves de parametro latitud y longitud, necesario el token de seguridad,para obtenerlo pasar por user/login.")
     public ResponseEntity<List<MuseumDTO>> getNearMuseums(@PathVariable Double latitude,@PathVariable Double longitude,@PathVariable Integer token){
         ResponseEntity<List<MuseumDTO>> response = null;
 
@@ -189,6 +196,7 @@ public class MuseumController {
 
 
     @PostMapping("/create/{token}")
+    @Operation(summary = "Inserta un nuevo museo en la base de datos", description = "Inserta un nuevo museo en la base de datos, necesario el token de seguridad,para obtenerlo pasar por user/login.")
     public ResponseEntity<MuseumDTO> newMuseum(@RequestBody MuseumDTO museumDTO,@PathVariable Integer  token){
 
         ResponseEntity<MuseumDTO> response = null;
@@ -219,6 +227,7 @@ public class MuseumController {
 
 
     @PutMapping ("/update/{token}")
+    @Operation(summary = "Actualiza un museo en la base de datos", description = "Actualiza un museo en la base de datos, necesario el token de seguridad,para obtenerlo pasar por user/login.")
     public ResponseEntity<MuseumDTO> updateMuseum(@RequestBody MuseumDTO museumDTO,@PathVariable Integer  token){
 
         ResponseEntity<MuseumDTO> response = null;
@@ -249,6 +258,7 @@ public class MuseumController {
 
 
     @DeleteMapping ("/delete/{name}/{token}")
+    @Operation(summary = "Borra un museo de la base de datos", description = "Elimina un museo de la base de datos, necesario el token de seguridad,para obtenerlo pasar por user/login.")
     public ResponseEntity<MuseumDTO> deleteMuseum(@PathVariable String name, @PathVariable Integer  token){
 
         ResponseEntity<MuseumDTO> response = null;

@@ -3,6 +3,7 @@ package com.api.rest.francisco.controllers;
 import com.api.rest.francisco.models.User;
 import com.api.rest.francisco.services.security.SecurityServiceImpl;
 import com.api.rest.francisco.services.user.UserServiceImpl;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.constraints.NotBlank;
@@ -30,6 +31,7 @@ public class UserController {
     }
 
     @GetMapping("/login/{name}/{dni}/{email}")
+    @Operation(summary = "Registro en la API", description = "Te dara acceso a la API, te registra en la base de datos y devuelve un token de seguridad que necesitaras para los distintos endpoints.")
     public ResponseEntity<Integer> login(@PathVariable @NotBlank String name, @PathVariable @NotBlank String dni, @PathVariable @NotBlank String email, HttpServletRequest request){
 
         ResponseEntity<Integer> response = null;

@@ -2,7 +2,6 @@ package com.api.rest.francisco.services.security;
 
 import com.api.rest.francisco.models.User;
 import com.api.rest.francisco.services.user.UserServiceImpl;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
